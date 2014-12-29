@@ -5,9 +5,20 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {
 	render: render 
 });
 
+WebFontConfig = {
+
+		active: function() { game.time.events.add(Phaser.Timer.SECOND, createHUD, this); },
+
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Sigmar One']
+    }
+
+};
 
 function preload() {
 
+	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 }
 
 var ball;
@@ -50,16 +61,14 @@ function create() {
 	// Enable mouse pointer movement tracking.
 	//
 	game.input.addMoveCallback(pointerMove, this);
-
-	// Create HUD.
-	//
-	createHUD();
 }
 
 function createHUD() {
 
 	hitText = game.add.text(10, 10, "HIT: " + pad(hit.toString()));
-	missedText = game.add.text(600, 10, "MISS: " + pad(missed.toString()));
+	hitText.font = 'Sigmar One';
+	missedText = game.add.text(550, 10, "MISS: " + pad(missed.toString()));
+	missedText.font = 'Sigmar One';
 }
 
 function updateHUD() {
