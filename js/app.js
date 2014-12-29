@@ -11,7 +11,7 @@ WebFontConfig = {
 
     //  The Google Fonts we want to load (specify as many as you like in the array)
     google: {
-      families: ['Sigmar One']
+      families: ['Orbitron']
     }
 
 };
@@ -66,9 +66,9 @@ function create() {
 function createHUD() {
 
 	hitText = game.add.text(10, 10, "HIT: " + pad(hit.toString()));
-	hitText.font = 'Sigmar One';
+	hitText.font = 'Orbitron';
 	missedText = game.add.text(550, 10, "MISS: " + pad(missed.toString()));
-	missedText.font = 'Sigmar One';
+	missedText.font = 'Orbitron';
 }
 
 function updateHUD() {
@@ -174,6 +174,9 @@ function bulletContact(body, shapeA, shapeB, equation) {
 
 	if (!body || body === base.body || body === cannon.body) {
 		bullet.kill();
+		missed += 1;
+
+		updateHUD();
 	}
 
 	else if (body === ball.body) {
@@ -207,9 +210,6 @@ function update() {
 		var energy = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y) + (600 - ball.y);
 		if (energy < 100) {
 			ball.kill();
-			missed += 1;
-
-			updateHUD();
 		}
 		
 		if(!ball.alive) {
